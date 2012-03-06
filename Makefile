@@ -1,4 +1,6 @@
-CC = gcc
+CC = g++
+CFLAGS = -Wall -Wextra -g
+LIBS = -pthread
 
-main: main.c
-	$(CC) $< -o $@ -w -pthread -g
+main: main.cpp
+	$(CC) $< -o $@ $(CFLAGS) $(LIBS)

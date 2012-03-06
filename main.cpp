@@ -15,6 +15,12 @@ int balance; // total amount of money
 int money_takers;
 pthread_mutex_t mutex;
 pthread_cond_t cond;
+
+int enoutht_payment(int amount)
+{
+    return balance >= amount ? 1 : 0;
+}
+
 void add_money(int amount, int thread_id)
 {
     printf("thread %d enters add_money with amount=%d\n", thread_id, amount);
@@ -49,7 +55,7 @@ void take_money(int amount, int thread_id)
     printf("thread %d removed %d from balance. now balance is: %d\n", thread_id, amount, balance);
 }
 
-void bank_user(void *args)
+void* bank_user(void *args)
 {
     int i = MAX_PER_USER_ITERATIONS;
     int amount;
@@ -80,10 +86,6 @@ void bank_user(void *args)
 
     }
 }
-int enoutht_payment(int amount)
-{
-    return balance >= amount ? 1 : 0;
-}
 
 void init()
 {
@@ -106,7 +108,7 @@ void init()
 }
 
 
-int main(int argc, char **argv)
+int main()
 {
     int i;
     int *t_num;
@@ -116,7 +118,7 @@ int main(int argc, char **argv)
     {
         t_num = (int *)malloc(sizeof(int));
         *t_num = i;
-        pthread_create(&threads[i], NULL, (void *)bank_user, (void *)t_num);
+        pthread_create( &threads[i] , NULL , bank_user, t_num);
     }
 
     for(i=0;i<N;i++)
