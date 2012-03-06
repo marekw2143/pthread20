@@ -6,9 +6,9 @@
 // Number of threads.
 //
 #define N 2
-#define START_BALANCE 100
+#define START_BALANCE 50
 #define MAX_PAYMENT 10
-#define MAX_PER_USER_ITERATIONS 1000000
+#define MAX_PER_USER_ITERATIONS 5 
 
 
 class Bank
